@@ -1,0 +1,134 @@
+Version 4.0.0 2012-08-01
+	- data/dsistrip.json: added strips to 2012-08-01.
+	- created a gem. The version number format changes slightly to be
+	compatible with gems.
+	- imported code into github. some files have been re-arranged to
+	better suit their layout.
+	- bin/*.rb: renamed program files to be more consistent.
+	- README converted to markdown format. Some minor cleanups as well.
+	- some refactoring as part of the gem creation. Some APIs have
+	changed to be backwards incompatible. Since I don't know of anyone
+	who uses these Ruby APIs, it probably doesn't matter much.
+
+Version 3.05 2012-02-01
+	- data/dsistrips.json: added strips to 2012-01-31.
+	- data/dsibooks.json: added book "How's that Underling Thing
+	Working Out for You?".
+	- data/dsibooks.json: fixed date range for "I'm Tempted to Stop
+	Acting Randomly". No one noticed as far as I know. Does anyone use
+	the book / page reference anymore? The online archive is much more
+	immediate
+
+Version 3.04 2011-10-02
+	- data/dsistrips.json: added strips to 2011-09-30.
+	- data/dsistrips.json: found and replaced 4 more strips containing
+	a synopsis composed of words selected from the dialog.
+	- lib/dsi/entry.rb: new
+	- lib/dsi.rb: added methods fetch_latest_strip_date and has_dialog?.
+	fetch_latest_strip_date is experimental only for now
+	- bin/key.rb: fixed bug where subjects weren't displayed properly.
+	- bin/incremental.rb: new
+	- lib/*.rb: added a subdirectory called 'dsi' and moved most
+	library files to there. this matches other ruby module layouts.
+	- bin/*.rb, lib/**/*.rb and test/*.rb: more refactoring based on ruby
+	code quality checkers. Pretty much done as much as can be done.
+
+Version 3.03 2011-07-31
+	- data/dsistrips.json: added strips to 2011-07-31. Spelling and
+	grammar corrections throughout.
+	- data/dsibooks.json: added "I'm Tempted to Stop Acting Randomly".
+	- data/dsibooks.json: changed id of "Random Acts of Management"
+	from "random" to "acts" because of a new book called "I'm Tempted
+	to Stop Acting Randomly".
+	- bin/*rb, lib/*.rb and test/*.rb: refactoring based on ruby code
+	quality checkers (reek, roodi, flay, flog and saikuro). still
+	more to do, though.
+
+Version 3.02 2010-07-31
+	- data/dsistrips.json: added strips to 2010-07-31. Spelling and
+	other minor corrections throughout.
+	- data/dsibooks.json: added books "Freedom's Just Another Word for
+	People Finding Out You're Useless" and "14 Years of Loyal Service
+	in a Fabric-Covered Box".
+	- bin/load.rb: added word stemming to the database load.
+	- lib/dsi.rb: added method dsistriphash (and test in test-data.rb).
+	- lib/stem.rb: added a porter-stemming module to this
+	distribution. this excellent library was aquired from
+	http://tartarus.org/~martin/PorterStemmer/
+	- doc/create-mysql-tables.sql: add dsitopsearches create
+	statement.
+
+Version 3.01 2009-06-17
+	- dsistrips.json: added strips to 2009-06-14
+	- dsistrips.json: refinements, additions, spelling corrections to
+	older DSI entries
+	- key.rb: fixed bug that caused a no method error
+	- key.rb: added options -a and -n
+
+Version 3.00 2009-05-01
+	- Combined dsibooks and dsistrips into a single download
+	- Added strips to 2009-04-30, though the ones past 2007-02-02 are
+	just random collections of important words in the dialog.
+	- spelling and wording corrections in dsistrips.json
+	- Converted XML files into JSON.
+	- Added books "Don't Stand Where the Comet is Assumed to Strike
+	Oil", "The Fluorescent Light Glistens Off Your Head", "Thriving
+	on Vague Objectives", "Try Rebooting Yourself", "Positive
+	Attitude", "This is the Part Where You Pretend to Add Value"
+	- Removed java programs, added ruby ones
+	- Changed licenses to the Creative Commons Attribution 2.5 Canada
+	License for the dsi JSON files and public domain for programs
+
+Version 2.03 2004-01-01
+	- Added strips to 2003-12-31.
+	- Added book "Words You Don't Want to Hear at Your Performance
+	Review"
+
+Version 2.02 2003-04-30
+	- Added strips to 2003-04-30.
+	- Added book "When Body Language Goes Bad"
+
+Version 2.01 2003-01-01
+	- Added strips to 2002-12-31.
+
+Version 2.00 2002-09-01
+	- Added strips to 2002-08-31.
+	- Changed the XML DTD to a XML schema.
+	- The XML date format changed from YYYYMMDD to YYYY-MM-DD+00:00
+	to be compatible with the XML schema date format.
+	- Book published year has changed format from YYYY to YYYY+00:00
+	for the same reason.
+
+Version 1.07 2002-04-03
+	- Added strips to 2002-03-31
+	- Added book "Another Day in Cubicle Paradise"
+
+Version 1.06 2002-01-03
+	- Added strips to 2001-12-31
+	- Added book 'When did Ignorance Become a Point of View?'
+
+Version 1.05 2001-10-24
+	- Added strips from February 12, 2001 to October 21, 2001.
+	- Added book 'Excuse Me While I Wag'.
+
+Version 1.04 2001-02-11
+	- Added strips from November 1, 2000 to February 11, 2001.
+
+Version 1.03 2000-11-01
+	- Added strips from January 1, 2000 to October 31, 2000.
+	- Changed the license for the DSI to the Open Publication
+	License.
+	- Made some modifications to dsi.xml to enable it to pass Sun's
+	parsing validator: DTD order change, change & to &amp;.
+	- Added the xtab java program.
+	- Added book 'Random Acts of Management' to the xml file
+	and the Comic::Collection module.
+
+Version 1.02 2000-01-08
+	- Added strips from May 1, 1999 to December 31, 1999.
+
+Version 1.01 1999-05-01
+	- Added strips January 1, 1999 to April 30, 1999.
+
+Version 1.00 1999-03-27
+	- First public release.
