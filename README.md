@@ -12,6 +12,10 @@ It contains:
 
 You can reach me at <http://www.bfmartin.ca/contact>
 
+This project is dedicated to all fans of Dilbert and to Scott Adams in
+particular for creating the comic strip.
+
+
 
 # Copyright and Licenses
 
@@ -24,9 +28,6 @@ license](http://creativecommons.org/licenses/by/2.5/ca/).  The short
 version is that you can do whatever you want with these files as long
 as you give me credit for creating them.
 
-The work is dedicated to all fans of Dilbert and to Scott Adams in
-particular for creating the comic strip.
-
 ## Programs written by me
 
 The program files (Ruby and Rakefile files) that were written by me
@@ -35,9 +36,9 @@ donated to the public domain. Do whatever you want with them.
 
 ## Bundled module
 
-A bundled Ruby module for word stemming is copyright by its
-author(s). Please refer to its documentation for its license
-information. Obtained from
+A bundled Ruby module for word stemming (`lib/dsi/stem.rb`) is
+copyright by its author(s). Please refer to its documentation for its
+license information. Obtained from
 <http://tartarus.org/~martin/PorterStemmer/ruby.txt>.
 
 
@@ -75,9 +76,9 @@ each strip, the JSON file contains:
 ## dsibooks.json
 
 This describes each Dilbert comic collection and its contents.
-For each book, the file contains:
+For each book, the file contains (all are required):
 
-- a one word code for the book.
+- a one word code id for the book.
 
 - the book title
 
