@@ -6,6 +6,7 @@ require 'rake/clean'
 require 'rake/rdoctask'
 require 'rake/testtask'
 require 'rake/gempackagetask'
+require 'net/http'
 
 # include these dirs / files in the rdoc documentation files
 RDOC_DIRS = [ "lib/*.rb", "lib/dsi/*.rb", "test/*.rb" ]
@@ -80,8 +81,6 @@ end
 namespace :dialog do
   directory download_dir
   require 'zlib'
-  require 'net/http'
-
 
   file raw_john => [ download_dir ] do
     url = 'http://john.ccac.rwth-aachen.de:8000/ftp/dilbert/dilbert.txt'
@@ -89,17 +88,26 @@ namespace :dialog do
     File.open(raw_john, "w") { |fil| fil.syswrite(data) }
   end
 
+
   file raw_sanand => [ download_dir ] do
     url = 'http://www.s-anand.net/comic.dilbert.jsz'
     data = dialog_fetch(url)
-    uncomp = Zlib::Inflate.inflate(data)
-    uncomp = uncompress(data)
-    File.open(raw_sanand, "w") { |fil| fil.syswrite(uncomp) }
+    tempfile = "temp.tmp"
+    File.open(tempfile, "w") { |fil| fil.syswrite(data) }
+    File.open(tempfile) do |f|
+      gz = Zlib::GzipReader.new(f)
+      uncomp = gz.read
+      File.open(raw_sanand, "w") { |fil| fil.syswrite(uncomp) }
+      f.close
+    end
+    File.delete(tempfile)
   end
+
 
   file dialog_json => [ raw_john, raw_sanand ] do |f|
     ruby %( #{ gen_bin } -o #{ f.name } #{ f.prerequisites.join(' ') } )
   end
+
 
   # wrap up the task with a nice name
   desc "prepare dialog.json by downloading raw and reformatting"
@@ -109,9 +117,7 @@ namespace :dialog do
   def dialog_fetch(url)
     myurl = URI.parse(url)
     req = Net::HTTP::Get.new(myurl.path)
-    res = Net::HTTP.start(myurl.host, myurl.port) do |http|
-      http.request(req)
-    end
+    res = Net::HTTP.start(myurl.host, myurl.port) { |http| http.request(req) }
     res.body
   end
 end
