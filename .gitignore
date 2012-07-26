@@ -1,5 +1,6 @@
 *~
 download
+data/dsidialog.json
 *.gem
 *.rbc
 .bundle
