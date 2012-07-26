@@ -4,7 +4,7 @@
 
 require 'erb'
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
 template = %q(
 <script src="/sites/default/files/sorttable.js" type="text/javascript"></script>
@@ -31,7 +31,7 @@ If you want to collect all the strips, these are the books showing the original 
 Most of the strips, but not all, are also published in <span class="booktitle">Dilbert 2.0</span>, a 20-year collection of strips from beginning to <span class="stripdate">2008-04-25</span>.
 )
 
-books = DSI.dsibooks['dsibooks']['book'].collect do |bk|
+books = Finder_DSI.dsibooks['dsibooks']['book'].collect do |bk|
   s = Date.today
   e = Date.new(1989, 1, 1)
   bk['page_list']['page'].each do |r|

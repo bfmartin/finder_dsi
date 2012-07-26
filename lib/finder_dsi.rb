@@ -8,7 +8,7 @@ require 'net/http'
 require 'date'
 
 
-class DSI
+class Finder_DSI
 
   # default location of json files.  must end with a slash
   DATADIR = File.dirname(__FILE__) + "/../data/"
@@ -25,7 +25,7 @@ class DSI
   # (as defined in dsibooks.json).
   #
   # e.g.
-  #      bookid, page = DSI.bookpage(date)
+  #      bookid, page = Finder_DSI.bookpage(date)
   #
   def self.bookpage(stripdate)
     self.dsibooks['dsibooks']['book'].each do |book|
@@ -45,7 +45,7 @@ class DSI
   # all dates.  for a hash by date, see dsistripshash.
   #
   # example usage:
-  #   strips = DSI.dsistrips
+  #   strips = Finder_DSI.dsistrips
   #
   # results in:
   #   strips['dsistrips']                >> Hash containing keys 'strip'
@@ -61,7 +61,7 @@ class DSI
   # note: all keys and non-nil values, and everything else including
   # the date, are strings.
   def self.dsistrips(file = DATADIR + "dsistrips.json")
-    cache = DSICache.instance().strips
+    cache = Finder_DSICache.instance().strips
     cache[file] = JSON.parse(File.readlines(file).join) unless
       cache.has_key?(file)
     cache[file]
@@ -80,7 +80,7 @@ class DSI
   #          note, synopsis, characters, keywords.  All keys and values in
   #          this hash are strings, including the date
   def self.dsistriphash(file = DATADIR + "dsistrips.json")
-    hashcache = DSICache.instance().striphash
+    hashcache = Finder_DSICache.instance().striphash
     unless hashcache.has_key?(file)
       hashcache[file] = Hash.new
       populate_striphash(file, hashcache)
@@ -92,7 +92,7 @@ class DSI
   # read and parse the dsibooks json file then return an object
   # containing the contents.  cache it so we only parse it once
   def self.dsibooks(file = DATADIR + "dsibooks.json")
-    cache = DSICache.instance().books
+    cache = Finder_DSICache.instance().books
     cache[file] = JSON.parse(File.readlines(file).join) unless
       cache.has_key?(file)
     cache[file]
@@ -211,7 +211,7 @@ end
 
 require 'singleton'
 # this is used to cache data from json files and other data
-class DSICache  # :nodoc: all
+class Finder_DSICache  # :nodoc: all
   include Singleton
   attr_accessor :books, :strips, :striphash
   def initialize
@@ -221,6 +221,6 @@ class DSICache  # :nodoc: all
   end
 end
 
-require 'dsi/entry'
-require 'dsi/ext'
-require 'dsi/dialog'
+require 'finder_dsi/entry'
+require 'finder_dsi/ext'
+require 'finder_dsi/dialog'

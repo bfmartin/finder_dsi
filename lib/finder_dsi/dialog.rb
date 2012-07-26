@@ -1,10 +1,10 @@
 # work with the dsi dialog data
 
-class DSI::Dialog
+class Finder_DSI::Dialog
 
   # read and parse the dsidialog json file then return an object
   # containing the contents.  cache it so we only parse it once
-  def self.dsidialog(file = DSI::DATADIR + "dsidialog.json")
+  def self.dsidialog(file = Finder_DSI::DATADIR + "dsidialog.json")
     cache = DialogCache.instance().dialog
     cache[file] = JSON.parse(File.readlines(file).join) unless
       cache.has_key?(file)
@@ -29,7 +29,7 @@ JSON
 
   # reformat the array returned by dsidialog into a hash indexed by a
   # date object.  cache the result
-  def self.dsidialoghash(file = DSI::DATADIR + "dsidialog.json")
+  def self.dsidialoghash(file = Finder_DSI::DATADIR + "dsidialog.json")
     hashcache = DialogCache.instance().dialoghash
     unless hashcache.has_key?(file)
       hashcache[file] = Hash.new

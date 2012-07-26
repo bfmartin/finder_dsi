@@ -12,12 +12,12 @@
 
 require 'optparse'
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
 
 # read the latest strips file and return those after the specified date
 def self.add_strips_after_date(strips, date)
-  strips = DSI.dsistrips['dsistrips']['strip'].select do |strip|
+  strips = Finder_DSI.dsistrips['dsistrips']['strip'].select do |strip|
     sdate = strip["date"]
     strips[sdate] = strip if sdate.to_s > date
   end
@@ -52,10 +52,10 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-latest_date = DSI.fetch_latest_strip_date if latest_date == nil
+latest_date = Finder_DSI.fetch_latest_strip_date if latest_date == nil
 
 strips = Hash.new
-dialog = DSI::Dialog.dsidialoghash
+dialog = Finder_DSI::Dialog.dsidialoghash
 
 self.add_strips_after_date(strips, latest_date)
 ARGV.each do |file|
@@ -63,7 +63,7 @@ ARGV.each do |file|
 end
 
 strips.each do |date,strip|
-  fmt = DSI::Entry.new(strip, dialog[Date.parse_json(date)], 'NULL')
+  fmt = Finder_DSI::Entry.new(strip, dialog[Date.parse_json(date)], 'NULL')
 
   puts <<SQL unless fmt.date == nil or fmt.synopsis_note == ""
 insert into dsi (pubdate, title, dialog, title_stem, dialog_stem) values ('#{ fmt.date }', #{ fmt.synopsis_note.sqlquote }, #{ fmt.dialog.sqlquote }, #{ fmt.synopsis_note.stemmed.sqlquote }, #{ fmt.dialog.stemmed.sqlquote });

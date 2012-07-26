@@ -9,7 +9,7 @@ require 'rake/gempackagetask'
 require 'net/http'
 
 # include these dirs / files in the rdoc documentation files
-RDOC_DIRS = [ "lib/*.rb", "lib/dsi/*.rb", "test/*.rb" ]
+RDOC_DIRS = [ "lib/*.rb", "lib/finder_dsi/*.rb", "test/*.rb" ]
 
 # files and dirs used in this file
 data_dir     = "data"
@@ -37,7 +37,7 @@ at http://www.bfmartin.ca/finder/
 TEXT
   s.email       = 'http://www.bfmartin.ca/contact'
 #  s.executables = [ 'load.rb', 'generate-dsidialog.rb' ]
-  s.files       = Dir[ "lib/dsi.rb", "lib/dsi/*.rb", "bin/*.rb",
+  s.files       = Dir[ "lib/finder_dsi.rb", "lib/finder_dsi/*.rb", "bin/*.rb",
                        "#{ data_dir }/dsistrips.json",
                        "#{ data_dir }/dsibooks.json",
                        "README.md", "TODO.md", "Changelog" ]

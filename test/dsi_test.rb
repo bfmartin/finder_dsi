@@ -1,17 +1,17 @@
-# some tests for the dsi library
+# some tests for the finder_dsi library
 
 # TODO: write tests for: dsibooks, fetch_latest_strip_date,
 #        dialog.empty, dialog.read_dialog_raw,
-#        dialog.merge_into_dialog, dsi:entry, date.parse,
+#        dialog.merge_into_dialog, finder_dsi:entry, date.parse,
 #        string.sqlquote
 
 require "test/unit"
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
-class TestDSI < Test::Unit::TestCase
+class TestFinder_DSI < Test::Unit::TestCase
 
-  # test that the DSI.bookpage is working properly by supplying dates
+  # test that the Finder_DSI.bookpage is working properly by supplying dates
   # and comparing the resulting book names and page numbers to the
   # correct values.
   def test_bookpage_errors
@@ -21,7 +21,7 @@ class TestDSI < Test::Unit::TestCase
       "1991-03-31" => RuntimeError     # uncollected
     }.each do |date,exception|
       assert_raise exception do
-        DSI.bookpage(Date.parse_json(date))
+        Finder_DSI.bookpage(Date.parse_json(date))
       end
     end
   end
@@ -92,7 +92,7 @@ class TestDSI < Test::Unit::TestCase
      [ "2009-06-26", "loyal",     116],
      [ "2010-01-30", "tempted",    87],
     ].each do |rec|
-      cbook, cpage = DSI.bookpage(Date.parse_json(rec[0]))
+      cbook, cpage = Finder_DSI.bookpage(Date.parse_json(rec[0]))
       assert_equal(rec[1], cbook)
       assert_equal(rec[2], cpage)
     end
@@ -105,7 +105,7 @@ class TestDSI < Test::Unit::TestCase
       'morons' => "Always Postpone Meetings with Time-Wasting Morons",
       "pretend" => "This is the Part Where You Pretend to Add Value"
     }.each do |bookid,bookname|
-      assert_equal(bookname, DSI.bookname(bookid))
+      assert_equal(bookname, Finder_DSI.bookname(bookid))
     end
   end
 
@@ -113,19 +113,19 @@ class TestDSI < Test::Unit::TestCase
   # unknown book id
   def test_bookname_problem
     assert_raise(RuntimeError) do
-      DSI.bookname("no such book id")
+      Finder_DSI.bookname("no such book id")
     end
   end
 
 
-  # check DSI.dsistrips caches its result
+  # check Finder_DSI.dsistrips caches its result
   def test_multiple_dsi
-    assert_same(DSI.dsistrips, DSI.dsistrips)
+    assert_same(Finder_DSI.dsistrips, Finder_DSI.dsistrips)
   end
 
 
-  # check DSI.dsistriphash caches its result
+  # check Finder_DSI.dsistriphash caches its result
   def test_multiple_dsihash
-    assert_same(DSI.dsistriphash, DSI.dsistriphash)
+    assert_same(Finder_DSI.dsistriphash, Finder_DSI.dsistriphash)
   end
 end

@@ -8,12 +8,12 @@
 # existing strips.
 
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
 
 def self.gen_sql_book(bookid)
   found = nil
-  DSI.dsibooks['dsibooks']['book'].each do |bk|
+  Finder_DSI.dsibooks['dsibooks']['book'].each do |bk|
     if bk['id'] == bookid
       gen_sql_book_bk(bk)
       found = 1
@@ -30,11 +30,11 @@ def self.gen_sql_book_bk(bk)
 end
 
 
-# relies heavily on String.sqlquote defined in dsi/ext.rb
+# relies heavily on String.sqlquote defined in finder_dsi/ext.rb
 def self.gen_sql_range(id, title, range)
   (Date.parse_json(range['start_date']) ..
    Date.parse_json(range['end_date'])).each do |date|
-    bookid, page = DSI.bookpage(date)
+    bookid, page = Finder_DSI.bookpage(date)
     puts <<SQL
 update dsi set bookid=#{ id.sqlquote },bookname=#{ title.sqlquote },page=#{ page.to_s.sqlquote } where date=#{ date.to_s.sqlquote };
 SQL
@@ -43,7 +43,7 @@ end
 
 
 def self.show_usage_message
-  ids = DSI.dsibooks['dsibooks']['book'].collect { |bk| bk['id'] }
+  ids = Finder_DSI.dsibooks['dsibooks']['book'].collect { |bk| bk['id'] }
   puts <<TEXT
 usage: #{ $0 } <id> [<id>]
 

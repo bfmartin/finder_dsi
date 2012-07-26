@@ -7,7 +7,7 @@
 #
 # then call the getters to retrieve properly formatted data strings
 
-class DSI::Entry
+class Finder_DSI::Entry
   # hash containing strip arg, as read from the json
   attr_accessor :strip
   # hash containing the dialog, as read from the json
@@ -102,8 +102,8 @@ class DSI::Entry
   # look up the book and page for a date
   def bookpage(stripdate)
     begin
-      @bookid, @page = DSI.bookpage(Date.parse_json(stripdate))
-      @bookname = DSI.bookname(@bookid)
+      @bookid, @page = Finder_DSI.bookpage(Date.parse_json(stripdate))
+      @bookname = Finder_DSI.bookname(@bookid)
     rescue
       @bookname = @bookid = @page = @null
     end

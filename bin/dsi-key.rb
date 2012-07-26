@@ -8,7 +8,7 @@
 
 require 'optparse'
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
 # extracts the proper items (subject, keywork and/or character) out of
 # the strip Hash and returns an array
@@ -59,7 +59,7 @@ end
 # read the data and organise by entry
 def self.readdata(show)
   entryhash = Hash.new
-  DSI.dsistrips['dsistrips']['strip'].each do |strip|
+  Finder_DSI.dsistrips['dsistrips']['strip'].each do |strip|
     parseentry(entryhash, strip, show)
   end
   entryhash

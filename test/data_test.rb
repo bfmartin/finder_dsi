@@ -2,7 +2,7 @@
 
 require "test/unit"
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
 class TestValidateDSIData < Test::Unit::TestCase
 
@@ -10,7 +10,7 @@ class TestValidateDSIData < Test::Unit::TestCase
   # in the proper format.
   def test_read_dsistrips
     json = nil
-    assert_nothing_raised( RuntimeError ) { json = DSI.dsistrips }
+    assert_nothing_raised( RuntimeError ) { json = Finder_DSI.dsistrips }
 
     dsistrips = json['dsistrips']
     assert(dsistrips['strip'].size > 6000)
@@ -21,7 +21,7 @@ class TestValidateDSIData < Test::Unit::TestCase
   # several tests are bundled so as only have to loop through the strips once.
   def test_each_strip
     dates_seen = Hash.new
-    DSI.dsistrips['dsistrips']['strip'].each do |strip|
+    Finder_DSI.dsistrips['dsistrips']['strip'].each do |strip|
       each_strip_run(strip, dates_seen)
     end
   end
@@ -29,17 +29,17 @@ class TestValidateDSIData < Test::Unit::TestCase
 
   # make sure the version numbers from the different places are consistent
   def test_version
-    chl = DSI.version_from_changelog
-    assert_equal(chl, DSI.dsistrips['dsistrips']['header']['version'])
-    assert_equal(chl, DSI.dsibooks['dsibooks']['header']['version'])
+    chl = Finder_DSI.version_from_changelog
+    assert_equal(chl, Finder_DSI.dsistrips['dsistrips']['header']['version'])
+    assert_equal(chl, Finder_DSI.dsibooks['dsibooks']['header']['version'])
   end
 
 
   # check for gaps in the date range
   def test_date_gap
-    dates = DSI.dsistrips['dsistrips']['strip'].
+    dates = Finder_DSI.dsistrips['dsistrips']['strip'].
       collect { |strip| Date.parse_json(strip['date']) }.sort
-    expect = (DSI::FIRST_STRIP_DATE .. dates.last).collect { |date| date }.sort
+    expect = (Finder_DSI::FIRST_STRIP_DATE .. dates.last).collect { |date| date }.sort
     assert_equal(expect.size, dates.size)
     assert_equal(expect, dates)
   end
@@ -47,12 +47,12 @@ class TestValidateDSIData < Test::Unit::TestCase
 
   # test the re-defined dsistrip data structure
   def test_dsihash
-    strips = DSI.dsistriphash
+    strips = Finder_DSI.dsistriphash
     assert_instance_of(Hash, strips)
     # same number of entries as the json structure
-    assert_equal(strips.size, DSI.dsistrips['dsistrips']['strip'].size)
+    assert_equal(strips.size, Finder_DSI.dsistrips['dsistrips']['strip'].size)
     # check for a date or two
-    assert(strips.has_key?(DSI::FIRST_STRIP_DATE))
+    assert(strips.has_key?(Finder_DSI::FIRST_STRIP_DATE))
   end
 
 
@@ -152,7 +152,7 @@ class TestValidateDSIData < Test::Unit::TestCase
     assert_not_nil(stripdate_obj, "strip date not valid: " + stripdate)
 
     # date must be between 1989-04-16 and today
-    assert(stripdate_obj >= DSI::FIRST_STRIP_DATE,
+    assert(stripdate_obj >= Finder_DSI::FIRST_STRIP_DATE,
            "date in the past: " + stripdate)
     assert(stripdate_obj <= Date.today, "date in the future: " + stripdate)
   end

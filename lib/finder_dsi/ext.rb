@@ -1,6 +1,6 @@
 # extend system classes with useful methods
 
-require 'dsi/stem'
+require 'finder_dsi/stem'
 require 'date'
 
 # add stem method and sql quoting to strings

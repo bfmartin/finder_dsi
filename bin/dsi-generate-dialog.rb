@@ -12,7 +12,7 @@
 
 require 'optparse'
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
 
 # execution starts here
@@ -28,11 +28,11 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-dialog = DSI::Dialog.empty
+dialog = Finder_DSI::Dialog.empty
 
 ARGV.each do |arg|
-  dialog_in = DSI::Dialog.read_dialog_raw(arg)
-  DSI::Dialog.merge_into_dialog(dialog, dialog_in)
+  dialog_in = Finder_DSI::Dialog.read_dialog_raw(arg)
+  Finder_DSI::Dialog.merge_into_dialog(dialog, dialog_in)
 end
 
 if output_file == nil

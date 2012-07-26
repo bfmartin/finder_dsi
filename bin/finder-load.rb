@@ -5,12 +5,12 @@
 # if available, otherwise inserts nulls.
 
 $: << File.dirname(__FILE__) + "/../lib"
-require 'dsi'
+require 'finder_dsi'
 
-dialog = DSI::Dialog.dsidialoghash
+dialog = Finder_DSI::Dialog.dsidialoghash
 
-DSI.dsistrips['dsistrips']['strip'].each do |strip|
-  fmt = DSI::Entry.new(strip, dialog[Date.parse_json(strip['date'])])
+Finder_DSI.dsistrips['dsistrips']['strip'].each do |strip|
+  fmt = Finder_DSI::Entry.new(strip, dialog[Date.parse_json(strip['date'])])
 
   puts [ '\N', fmt.date, fmt.synopsis_note, fmt.characters,
          fmt.keywords_subject, fmt.dialog, fmt.bookid, fmt.bookname,
