@@ -39,7 +39,7 @@ class TestValidateDSIData < Test::Unit::TestCase
   def test_date_gap
     dates = Finder_DSI.dsistrips['dsistrips']['strip'].
       collect { |strip| Date.parse_json(strip['date']) }.sort
-    expect = (Finder_DSI::FIRST_STRIP_DATE .. dates.last).collect { |date| date }.sort
+    expect = (Finder_DSI::FIRST_STRIP_DATE .. dates.last).sort
     assert_equal(expect.size, dates.size)
     assert_equal(expect, dates)
   end
