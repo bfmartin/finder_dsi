@@ -26,7 +26,8 @@ The JSON data files (dsistrips.json and dsibooks.json) are copyright
 Commons Attribution 2.5 Canada
 license](http://creativecommons.org/licenses/by/2.5/ca/).  The short
 version is that you can do whatever you want with these files as long
-as you give me credit for creating them.
+as you give me credit for creating them. A link to my site will be
+perfect.
 
 ## Programs written by me
 
@@ -38,7 +39,7 @@ donated to the public domain. Do whatever you want with them.
 
 A bundled Ruby module for word stemming (`lib/dsi/stem.rb`) is
 copyright by its author(s). Please refer to its documentation for its
-license information. Obtained from
+license information. It was obtained from
 <http://tartarus.org/~martin/PorterStemmer/ruby.txt>.
 
 
