@@ -16,7 +16,6 @@ This project is dedicated to all fans of Dilbert and to Scott Adams in
 particular for creating the comic strip.
 
 
-
 # Copyright and Licenses
 
 ## JSON files
@@ -27,7 +26,7 @@ Commons Attribution 2.5 Canada
 license](http://creativecommons.org/licenses/by/2.5/ca/).  The short
 version is that you can do whatever you want with these files as long
 as you give me credit for creating them. A link to my site will be
-perfect.
+good, though it's not required.
 
 ## Programs written by me
 
