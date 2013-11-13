@@ -97,7 +97,11 @@ JSON
 
   def self.dialog_raw(lines, ret)
     is_sanand = lines[0] =~ /id\s+quote/
-    lines.reject! { |line| line =~ /^(id\s+quote|pg|sh)/ }
+    begin
+      lines.reject! { |line| line =~ /^(id\s+quote|pg|sh)/ }
+    rescue
+      # do nothing
+    end
     lines.each do |dline|
       is_sanand ? process_sanand_line(dline, ret) :
         process_john_line(dline, ret)
@@ -138,7 +142,11 @@ JSON
 
 
   def self.parse_john_line(dln)
-    return nil if /^pg/.match(dln) or /^sh/.match(dln) or /^\.\.\./.match(dln)
+    begin
+      return nil if /^pg/.match(dln) or /^sh/.match(dln) or /^\.\.\./.match(dln)
+    rescue
+      return nil
+    end
     items = /(\d+) [*-][*-]+ ?(.*)/.match(dln) or return nil
     dlines = items[2]
     return nil if dlines =~ /^\s+$/ or dlines == ""
