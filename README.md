@@ -160,7 +160,7 @@ MySQL's full text indexing.
 
         CREATE TABLE `dsilog` (
           `id` int unsigned NOT NULL AUTO_INCREMENT,
-          `sdate` date NOT NULL,
+          `sdate` datetime NOT NULL,
           `words` text NOT NULL,
           `ipaddr` varchar(20) NOT NULL,
           `hits` smallint NOT NULL,
