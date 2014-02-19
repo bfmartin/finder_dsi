@@ -2,14 +2,13 @@
 #
 # part of finder_dsi
 
-require 'rake/clean'
-require 'rake/rdoctask'
-require 'rake/testtask'
-require 'rake/gempackagetask'
 require 'net/http'
+require 'rake/clean'
+require 'rake/testtask'
+require 'rdoc/task'
+require 'rubygems'
+require 'rubygems/package_task'
 
-# include these dirs / files in the rdoc documentation files
-RDOC_DIRS = [ "lib/*.rb", "lib/finder_dsi/*.rb", "test/*.rb" ]
 
 # files and dirs used in this file
 data_dir     = "data"
@@ -44,11 +43,16 @@ TEXT
   s.homepage    = 'http://www.bfmartin.ca/'
 #  s.test_files = Dir.glob('test/*_test.rb')
 end
-Rake::GemPackageTask.new(gemspec) do |pkg|; end
+
+
+# create a zip file
+Gem::PackageTask.new(gemspec) do |pkg|
+  pkg.need_zip = true
+end
 
 
 # add these dirs / files when cleaning
-CLEAN.include( download_dir )
+CLEAN.include( download_dir, "pkg" )
 CLOBBER.include( dialog_json )
 
 
@@ -70,10 +74,9 @@ TEXT
 end
 
 
-# run rdoc
-Rake::RDocTask.new do |t|
-  t.rdoc_files.include(RDOC_DIRS)
-#  t.options << "--all"    # uncomment to get private methods as well
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_files.include("lib/*.rb", "lib/finder_dsi/*.rb", "test/*.rb")
+  rdoc.options << "--all"    # uncomment to get private methods as well
 end
 
 
@@ -92,15 +95,17 @@ namespace :dialog do
   file raw_sanand => [ download_dir ] do
     url = 'http://www.s-anand.net/comic.dilbert.jsz'
     data = dialog_fetch(url)
-    tempfile = "temp.tmp"
-    File.open(tempfile, "w") { |fil| fil.syswrite(data) }
-    File.open(tempfile) do |f|
-      gz = Zlib::GzipReader.new(f)
-      uncomp = gz.read
-      File.open(raw_sanand, "w") { |fil| fil.syswrite(uncomp) }
-      f.close
-    end
-    File.delete(tempfile)
+    File.open(raw_sanand, "w") { |fil| fil.syswrite(data) }
+#    tempfile = "temp.tmp"
+#    File.open(tempfile, "w") { |fil| fil.syswrite(data) }
+#    File.open(tempfile) do |f|
+#      gz = Zlib::GzipReader.new(f)
+#      uncomp = gz.read
+#      File.open(raw_sanand, "w") { |fil| fil.syswrite(uncomp) }
+#      f.close
+#        f.write(data)
+#    end
+#    File.delete(tempfile)
   end
 
 
