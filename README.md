@@ -21,7 +21,7 @@ particular for creating the comic strip.
 ## JSON files
 
 The JSON data files (dsistrips.json and dsibooks.json) are copyright
-1999 - 2014 by Byron F. Martin. They are licensed under the [Creative
+1999 - 2015 by Byron F. Martin. They are licensed under the [Creative
 Commons Attribution 2.5 Canada
 license](http://creativecommons.org/licenses/by/2.5/ca/).  The short
 version is that you can do whatever you want with these files as long
