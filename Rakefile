@@ -95,17 +95,16 @@ namespace :dialog do
   file raw_sanand => [ download_dir ] do
     url = 'http://www.s-anand.net/comic.dilbert.jsz'
     data = dialog_fetch(url)
-    File.open(raw_sanand, "w") { |fil| fil.syswrite(data) }
-#    tempfile = "temp.tmp"
-#    File.open(tempfile, "w") { |fil| fil.syswrite(data) }
-#    File.open(tempfile) do |f|
-#      gz = Zlib::GzipReader.new(f)
-#      uncomp = gz.read
-#      File.open(raw_sanand, "w") { |fil| fil.syswrite(uncomp) }
-#      f.close
-#        f.write(data)
-#    end
-#    File.delete(tempfile)
+#    File.open(raw_sanand, "w") { |fil| fil.syswrite(data) }
+    tempfile = "temp.tmp"
+    File.open(tempfile, "w") { |fil| fil.syswrite(data) }
+    File.open(tempfile) do |f|
+      gz = Zlib::GzipReader.new(f)
+      uncomp = gz.read
+      File.open(raw_sanand, "w") { |fil| fil.syswrite(uncomp) }
+      f.close
+    end
+    File.delete(tempfile)
   end
 
 
