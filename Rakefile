@@ -108,7 +108,7 @@ namespace :dialog do
   end
 
 
-  file dialog_json => [ raw_john, raw_sanand ] do |f|
+  file dialog_json => [ raw_john ] do |f|
     ruby %( #{ gen_bin } -o #{ f.name } #{ f.prerequisites.join(' ') } )
   end
 

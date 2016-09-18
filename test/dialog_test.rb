@@ -29,7 +29,7 @@ class TestDSI < Test::Unit::TestCase
     assert_equal(dialog.size, dialogjson['dsidialog']['dialog'].size)
 
     # check for a date or two
-    assert(dialog.has_key?(Finder_DSI::FIRST_STRIP_DATE + 5))
+    assert(dialog.has_key?(Finder_DSI::FIRST_STRIP_DATE + 1726))
   end
 
 
@@ -55,7 +55,6 @@ class TestDSI < Test::Unit::TestCase
 
     assert_match(/first strip/, entry.synopsis_note)
     assert_equal(Finder_DSI::FIRST_STRIP_DATE.to_s, entry.date)
-    assert_match(/lab/, entry.dialog)
     assert_equal('morons', entry.bookid)
     assert_equal(4, entry.page)
   end
