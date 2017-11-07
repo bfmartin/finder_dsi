@@ -4,6 +4,7 @@
 
 require 'net/http'
 require 'rake/clean'
+require 'rake/notes/rake_task'
 require 'rake/testtask'
 require 'rdoc/task'
 require 'rubygems'
@@ -14,10 +15,9 @@ data_dir     = 'data'
 download_dir = 'download'
 dialog_json  = data_dir + '/dsidialog.json'
 raw_john     = download_dir + '/dialog-john.txt'
-raw_sanand   = download_dir + '/dialog-sanand.txt'
 gen_bin      = 'bin/dsi-generate-dialog.rb'
 
-# default task. note: if this is changed, then also change the test task.
+# default task.
 task default: [:test]
 
 # define the gem
@@ -45,7 +45,7 @@ Gem::PackageTask.new(gemspec) do |pkg|
 end
 
 # add these dirs / files when cleaning
-CLEAN.include(download_dir, 'pkg')
+CLEAN.include(download_dir, 'pkg', 'html')
 CLOBBER.include(dialog_json)
 
 # run unit tests
@@ -73,7 +73,6 @@ end
 # work with the dialog data
 namespace :dialog do
   directory download_dir
-  require 'zlib'
 
   file raw_john => [download_dir] do
     url = 'http://john.ccac.rwth-aachen.de:8000/ftp/dilbert/dilbert.txt'
@@ -81,23 +80,8 @@ namespace :dialog do
     File.open(raw_john, 'w') { |fil| fil.syswrite(data) }
   end
 
-  file raw_sanand => [download_dir] do
-    url = 'http://www.s-anand.net/comic.dilbert.jsz'
-    data = dialog_fetch(url)
-    # File.open(raw_sanand, 'w') { |fil| fil.syswrite(data) }
-    tempfile = 'temp.tmp'
-    File.open(tempfile, 'w') { |fil| fil.syswrite(data) }
-    File.open(tempfile) do |f|
-      gz = Zlib::GzipReader.new(f)
-      uncomp = gz.read
-      File.open(raw_sanand, 'w') { |fil| fil.syswrite(uncomp) }
-      f.close
-    end
-    File.delete(tempfile)
-  end
-
   file dialog_json => [raw_john] do |f|
-    ruby %( #{gen_bin} -o #{f.name} #{f.prerequisites.join(' ')} )
+    ruby %{ #{gen_bin} #{f.prerequisites.join(' ')} > #{f.name} }
   end
 
   # wrap up the task with a nice name

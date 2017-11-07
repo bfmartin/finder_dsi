@@ -8,5 +8,5 @@ website
 
 unit tests
 
-- more tests for book and page number, at least one per book
-- more tests for bad data files
+- need tests for: dialog.empty, dialog.read_dialog_raw, date.parse,
+  dialog.merge_into_dialog, finderdsi:entry, string.sqlquote

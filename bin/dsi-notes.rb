@@ -3,9 +3,9 @@
 # reads the dsistrips json file and print all items with notes.
 # Useful for browsing and debugging.
 
-$: << File.dirname(__FILE__) + "/../lib"
+$LOAD_PATH << __dir__ + '/../lib'
 require 'finder_dsi'
 
-Finder_DSI.dsistrips['dsistrips']['strip'].each do |s|
-  puts s['date'] + "  " + s['note'] if s['note'] != nil
+FinderDSI.dsistrips['dsistrips']['strip'].each do |s|
+  puts s['date'] + '  ' + s['note'] unless s['note'].nil?
 end

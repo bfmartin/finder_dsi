@@ -6,32 +6,29 @@
 #
 # useful for organising/debugging the keywords, and also useful for browsing
 
-require 'optparse'
-$: << File.dirname(__FILE__) + "/../lib"
+require 'trollop'
+$LOAD_PATH << __dir__ + '/../lib'
 require 'finder_dsi'
 
 # extracts the proper items (subject, keywork and/or character) out of
 # the strip Hash and returns an array
 def self.stripkeys(strip, show)
-  arr = Array.new
-  [ [ :subjects,   'subject'    ],
-    [ :characters, 'characters' ],
-    [ :keywords,   'keywords'   ] ].each do |sym, nam|
+  arr = []
+  [[:subjects,   'subject'],
+   [:characters, 'characters'],
+   [:keywords,   'keywords']].each do |sym, nam|
     snam = strip[nam]
-    skey_add(arr, snam) if (show == :all or show == sym)
+    skey_add(arr, snam) if show == :all || show == sym
   end
   arr
 end
 
-
 def self.skey_add(arr, snam)
-  if snam != nil
-    item = snam.class == Array ? snam : [ snam ]
-    item.collect! { |key| key.to_s }
-    arr.concat(item)
-  end
+  return if snam.nil?
+  item = snam.class == Array ? snam : [snam]
+  item.collect!(&:to_s)
+  arr.concat(item)
 end
-
 
 # output the list
 def self.kout(key)
@@ -39,7 +36,6 @@ def self.kout(key)
     puts fmtentry(kk, key[kk])
   end
 end
-
 
 # format an entry for printing.
 # the args are entry and an array of dates.  the result is a possibly
@@ -51,23 +47,23 @@ def self.fmtentry(word, dates)
   # print this many dates on a line
   datecount = 6
 
-  spacs = " ".ljust(entrywidth)
-  dates.each_slice(datecount).map { |dateslice| spacs + dateslice.join(" ") }.
-    join("\n").sub(spacs, word.ljust(entrywidth)[ 0, entrywidth ])
+  spacs = ' '.ljust(entrywidth)
+  dates.each_slice(datecount).map { |dateslice| spacs + dateslice.join(' ') }
+       .join("\n").sub(spacs, word.ljust(entrywidth)[0, entrywidth])
 end
 
 # read the data and organise by entry
 def self.readdata(show)
-  entryhash = Hash.new
-  Finder_DSI.dsistrips['dsistrips']['strip'].each do |strip|
+  entryhash = {}
+  FinderDSI.dsistrips['dsistrips']['strip'].each do |strip|
     parseentry(entryhash, strip, show)
   end
   entryhash
 end
 
 def self.parseentry(entryhash, strip, show)
-  self.stripkeys(strip, show).each do |entry|
-    entryhash[entry] = Array.new unless entryhash.has_key?(entry)
+  stripkeys(strip, show).each do |entry|
+    entryhash[entry] = [] unless entryhash.key?(entry)
     entryhash[entry].push(strip['date'])
   end
 end
@@ -80,7 +76,7 @@ def self.print_by_number(entryhash)
 end
 
 def self.hash_by_number(entryhash)
-  strips = Hash.new
+  strips = {}
   entryhash.keys.each do |key|
     entrykey(entryhash, strips, key)
   end
@@ -90,41 +86,40 @@ end
 def self.entrykey(entryhash, strips, key)
   ekey = entryhash[key]
   eksize = ekey.size
-  strips[eksize] = Hash.new unless strips.has_key?(eksize)
+  strips[eksize] = {} unless strips.key?(eksize)
   strips[eksize][key] = ekey
 end
 
 # execution starts here
 show = :keywords
 outsort = :alpha
-OptionParser.new do |opts|
-  opts.banner = "Usage: key.rb [-k|-s|-c|-a] [-n]"
-  opts.on("-h", '--help', "Show help") do |v|
-    puts opts
-    exit
-  end
-  opts.on("-k", '--keywords', 'Show only keywords. (Default)') do |v|
-    show = :keywords
-  end
-  opts.on("-c", '--characters', 'Show only characters') do |v|
-    show = :characters
-  end
-  opts.on("-s", '--subjects', 'Show only subjects') do |v|
-    show = :subjects
-  end
-  opts.on("-a", '--all', 'Show all (keywords, characters and subjects)') do |v|
-    show = :all
-  end
-  opts.on("-n", '--number', 'sort by top words instead of alpha') do |v|
-    outsort = :number
-  end
-end.parse!
 
-key = self.readdata(show)
+# parse options
+options = Trollop.options do
+  banner <<-TEXT
+Format the contents if the DSI
+
+dsi-key.rb [-k|-c|-s|-a] [-n]
+TEXT
+  opt :keywords, 'show only keywords (default)'
+  opt :characters, 'show only characters'
+  opt :subjects, 'show only subjects'
+  opt :all, 'show all (keywords, characters and subjects)'
+  opt :number, 'sort by top words instead of alpha'
+end
+
+# process args from the command line
+show = :keywords if options.keywords
+show = :characters if options.characters
+show = :subjects if options.subjects
+show = :all if options.all
+outsort = :number if options.number
+
+key = readdata(show)
 
 # print
 if outsort == :number
-  self.print_by_number(key)
+  print_by_number(key)
 else
-  self.kout(key)
+  kout(key)
 end

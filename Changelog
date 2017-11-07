@@ -1,3 +1,29 @@
+Version 5.0.0 2017-11-12
+	- removed functionality from the programs for the books. Since all
+	the strips are online, I don't think the book and page number are
+	useful anymore. this means:
+	** the dsibooks.json file will remain, but is unmaintained after 2014.
+	** bin/finder-books-update.rb and bin/finder-books-page-update.rb
+	are removed.
+	** library methods for book and page lookup based on dates are
+	removed.
+	- instead of two dialogue files available online, only one still
+	exists. stop trying to fetch the removed one.
+	- removed method fetch_latest_strip_date. it didn't work out for
+	me. this means bin/finder_load_incremental.rb is also removed as
+	it depended on this method.
+	- lots of style cleanups in the ruby code. the most impactful one
+	is renaming Finder_DSI library to FinderDSI.
+	- bin/dsi-key.rb command line option parsing changed from optparse
+	to trollop gem.
+	- bin/dsi-generate-dialog.rb no longer has an option to specify an
+	output file. it always sends output to stdout, and can be
+	redirected to a file on the command line. so removed dependency on
+	optparse gem.
+	- because of the removal of the book functionality, there are
+	backward imcompatibilities and the major version number has been
+	bumped.
+
 Version 4.0.1 2012-11-01
 	- data/dsistrip.json: added strips to 2016-10-31.
 

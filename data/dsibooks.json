@@ -5,12 +5,14 @@
       "version":   "4.0.1",
       "author":    "Byron F. Martin",
       "website":   "http://www.bfmartin.ca/",
-      "copyright": "1999 - 2015",
+      "copyright": "1999 - 2014",
       "description": [
         "Released under the Creative Commons Attribution 2.5 Canada License.",
         "See http://creativecommons.org/licenses/by/2.5/ca/",
 	"",
-        "Thanks to everyone who contributed to this index."
+        "Thanks to everyone who contributed to this index.",
+        "",
+        "This file is no longer maintained."
       ]
     },
     "book": [

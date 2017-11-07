@@ -7,16 +7,15 @@
 # use a statement like this in maria db / mysql. this assumes an empty table.
 #    > load data local infile 'loadtable.txt' into table dsi;
 
-$: << File.dirname(__FILE__) + "/../lib"
+$LOAD_PATH << __dir__ + '/../lib'
 require 'finder_dsi'
 
-dialog = Finder_DSI::Dialog.dsidialoghash
+dialog = FinderDSI::Dialog.dsidialoghash
 
-Finder_DSI.dsistrips['dsistrips']['strip'].each do |strip|
-  fmt = Finder_DSI::Entry.new(strip, dialog[Date.parse_json(strip['date'])])
+FinderDSI.dsistrips['dsistrips']['strip'].each do |strip|
+  fmt = FinderDSI::Entry.new(strip, dialog[Date.parse_json(strip['date'])])
 
-  puts [ '\N', fmt.date, fmt.synopsis_note, fmt.characters,
-         fmt.keywords_subject, fmt.dialog, fmt.bookid, fmt.bookname,
-         fmt.page, fmt.synopsis_note.stemmed,
-         fmt.keywords_subject.stemmed, fmt.dialog.stemmed ].join("\t")
+  puts ['\N', fmt.date, fmt.synopsis_note, fmt.characters,
+        fmt.keywords_subject, fmt.dialog, fmt.synopsis_note.stemmed,
+        fmt.keywords_subject.stemmed, fmt.dialog.stemmed].join("\t")
 end

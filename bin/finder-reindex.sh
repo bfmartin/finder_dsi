@@ -8,9 +8,9 @@
 #
 # lots of external dependencies:
 #  - database connection information in file $INFOFILE
-#  - download several files using wget
+#  - download files using wget
 #  - rake command
-#  - mysql
+#  - mariadb / mysql
 
 # prod values
 TMPTOP=/home/bfm/finder
@@ -59,8 +59,8 @@ load data local infile '$LOAD'
    replace into table dsi
    fields terminated by '\t'
    lines terminated by '\n'
-   (id, pubdate, title, chars, keywords, dialog, bookid, bookname,
-    page, title_stem, keywords_stem, dialog_stem);
+   (id, pubdate, title, chars, keywords, dialog,
+    title_stem, keywords_stem, dialog_stem);
 commit;
 EOF
 
