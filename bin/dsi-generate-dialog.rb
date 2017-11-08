@@ -10,7 +10,7 @@
 # The JSON is printed to STDOUT
 
 $LOAD_PATH << __dir__ + '/../lib'
-require 'finder_dsi'
+require 'finderdsi'
 
 # execution starts here
 dialog = FinderDSI::Dialog.empty

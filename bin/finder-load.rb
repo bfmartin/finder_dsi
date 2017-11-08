@@ -8,7 +8,7 @@
 #    > load data local infile 'loadtable.txt' into table dsi;
 
 $LOAD_PATH << __dir__ + '/../lib'
-require 'finder_dsi'
+require 'finderdsi'
 
 dialog = FinderDSI::Dialog.dsidialoghash
 

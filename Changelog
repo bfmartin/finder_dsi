@@ -1,4 +1,7 @@
-Version 5.0.0 2017-11-12
+Version 5.0.1 2017-11-07
+	- renamed files finder_dsi to finderdsi to match the library name.
+
+Version 5.0.0 2017-11-07
 	- removed functionality from the programs for the books. Since all
 	the strips are online, I don't think the book and page number are
 	useful anymore. this means:

@@ -1,6 +1,6 @@
 require 'test/unit'
 $LOAD_PATH << __dir__ + '/../lib'
-require 'finder_dsi'
+require 'finderdsi'
 
 # some tests for dialog api
 # these are split into a separate file so they can be skipped if

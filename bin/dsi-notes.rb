@@ -4,7 +4,7 @@
 # Useful for browsing and debugging.
 
 $LOAD_PATH << __dir__ + '/../lib'
-require 'finder_dsi'
+require 'finderdsi'
 
 FinderDSI.dsistrips['dsistrips']['strip'].each do |s|
   puts s['date'] + '  ' + s['note'] unless s['note'].nil?

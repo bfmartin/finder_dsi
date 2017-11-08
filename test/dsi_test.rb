@@ -1,6 +1,6 @@
 require 'test/unit'
 $LOAD_PATH << __dir__ + '/../lib'
-require 'finder_dsi'
+require 'finderdsi'
 
 # some tests for the finderdsi library
 class TestFinderDSI < Test::Unit::TestCase

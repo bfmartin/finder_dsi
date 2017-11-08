@@ -8,7 +8,7 @@
 
 require 'trollop'
 $LOAD_PATH << __dir__ + '/../lib'
-require 'finder_dsi'
+require 'finderdsi'
 
 # extracts the proper items (subject, keywork and/or character) out of
 # the strip Hash and returns an array

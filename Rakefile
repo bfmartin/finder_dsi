@@ -32,7 +32,7 @@ Data and programs used by the Dilbert Strip Finder
 at http://www.bfmartin.ca/finder/
 TEXT
   s.email       = 'http://www.bfmartin.ca/contact'
-  s.files       = Dir['lib/finder_dsi.rb', 'lib/finder_dsi/*.rb', 'bin/*.rb',
+  s.files       = Dir['lib/finderdsi.rb', 'lib/finderdsi/*.rb', 'bin/*.rb',
                       "#{data_dir}/dsistrips.json",
                       "#{data_dir}/dsibooks.json",
                       'README.md', 'TODO.md', 'Changelog']
@@ -66,7 +66,7 @@ TEXT
 end
 
 RDoc::Task.new do |rdoc|
-  rdoc.rdoc_files.include('lib/*.rb', 'lib/finder_dsi/*.rb', 'test/*.rb')
+  rdoc.rdoc_files.include('lib/*.rb', 'lib/finderdsi/*.rb', 'test/*.rb')
   rdoc.options << '--all' # uncomment to get private methods as well
 end
 

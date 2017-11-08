@@ -86,6 +86,6 @@ class FinderDSICache # :nodoc: all
   end
 end
 
-require 'finder_dsi/entry'
-require 'finder_dsi/ext'
-require 'finder_dsi/dialog'
+require 'finderdsi/entry'
+require 'finderdsi/ext'
+require 'finderdsi/dialog'
