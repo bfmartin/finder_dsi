@@ -1,0 +1,24 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colored (1.2)
+    cri (2.10.1)
+      colored (~> 1.2)
+    power_assert (1.1.0)
+    rake (12.0.0)
+    rake-notes (0.2.0)
+      colored
+      rake
+    test-unit (3.2.5)
+      power_assert
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cri
+  rake-notes
+  test-unit
+
+BUNDLED WITH
+   1.15.4
