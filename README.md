@@ -132,7 +132,7 @@ operating system's package manager should be able to help with these.
 
   - json        (to parse JSON files)
   - net/http    (to fetch dialog file)
-  - trollop     (to parse command line options)
+  - optimist    (to parse command line options)
   - rake_notes  (shows TODOs and FIXMEs in code)
 
   Try: `gem install <gemname>`

@@ -6,7 +6,7 @@
 #
 # useful for organising/debugging the keywords, and also useful for browsing
 
-require 'trollop'
+require 'optimist'
 $LOAD_PATH << __dir__ + '/../lib'
 require 'finderdsi'
 
@@ -95,7 +95,7 @@ show = :keywords
 outsort = :alpha
 
 # parse options
-options = Trollop.options do
+options = Optimist.options do
   banner <<-TEXT
 Format the contents if the DSI
 
