@@ -88,7 +88,7 @@ class FinderDSI
       is_sanand = lines[0] =~ /id\s+quote/
       begin
         lines.reject! { |line| line =~ /^(id\s+quote|pg|sh)/ }
-      rescue Error
+      rescue StandardError
         # do nothing
         _i = 0
       end
@@ -125,7 +125,7 @@ class FinderDSI
     def self.parse_john_line(dln)
       begin
         return nil if dln =~ /^(pg|sh|\.\.\.)/
-      rescue Error
+      rescue StandardError
         return nil
       end
       return nil unless (items = /(\d+) [*-][*-]+ ?(.*)/.match(dln))
