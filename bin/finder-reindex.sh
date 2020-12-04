@@ -25,7 +25,7 @@ if [ -f /apps/bfmartin.ca-other/service/finder_info.txt-gerty ]; then
 fi
 
 # temporary files
-TMPDIR=`$MKTMPCMD`
+TMPDIR=$($MKTMPCMD)
 SQL=$TMPDIR/run.sql
 LOAD=$TMPDIR/load.txt
 
@@ -37,22 +37,22 @@ fi
 
 # remove p: from the host if any. p: is used by php to denote
 # persistent connections but we don't need it here
-info=`cat $INFOFILE | sed s/p://`
+info=$(sed s/p:// < "$INFOFILE")
 set -- "$info"
-declare -a INFOARR=($*)
+declare -a INFOARR=("$*")
 
 TOP="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/..
-cd $TOP
+cd "$TOP" || exit
 
 # download and format dialog
 rake dialog:prepare
 # download strips.json
-wget -q -O $TOP/data/dsistrips.json https://raw.github.com/bfmartin/finder_dsi/master/data/dsistrips.json
+wget -q -O "$TOP"/data/dsistrips.json https://raw.github.com/bfmartin/finder_dsi/master/data/dsistrips.json
 
 # generate data
-$TOP/bin/finder-load.rb > $LOAD
+"$TOP"/bin/finder-load.rb > "$LOAD"
 
-cat <<EOF >$SQL
+cat <<EOF >"$SQL"
 start transaction;
 delete from dsi;
 load data local infile '$LOAD'
@@ -66,7 +66,7 @@ EOF
 
 CMD="mysql -h ${INFOARR[0]} -u ${INFOARR[1]} --password=${INFOARR[2]} ${INFOARR[3]}"
 # echo $CMD
-$CMD < $SQL
+$CMD < "$SQL"
 
 # remove the temp dir
-rm -rf $TMPDIR
+rm -rf "$TMPDIR"
