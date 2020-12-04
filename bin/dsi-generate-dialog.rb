@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
+
 #
 # this will read raw dialog files (as downloaded from different web
 # locations) and merge them into a standard format JSON file.

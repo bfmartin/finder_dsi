@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
+
 #
 # this program will read the dsistrips json file and format it for
 # printing.  it takes the keywords or characters or subjects, and
@@ -25,6 +27,7 @@ end
 
 def self.skey_add(arr, snam)
   return if snam.nil?
+
   item = snam.class == Array ? snam : [snam]
   item.collect!(&:to_s)
   arr.concat(item)
@@ -96,11 +99,12 @@ outsort = :alpha
 
 # parse options
 options = Optimist.options do
-  banner <<-TEXT
-Format the contents if the DSI
+  banner <<~TEXT
+    Format the contents if the DSI
 
-dsi-key.rb [-k|-c|-s|-a] [-n]
-TEXT
+    dsi-key.rb [-k|-c|-s|-a] [-n]
+  TEXT
+
   opt :keywords, 'show only keywords (default)'
   opt :characters, 'show only characters'
   opt :subjects, 'show only subjects'

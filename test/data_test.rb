@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 $LOAD_PATH << __dir__ + '/../lib'
 require 'finderdsi'
@@ -71,6 +73,7 @@ class TestValidateDSIData < Test::Unit::TestCase
   def strip_has_sentence_ending(strip)
     [strip['synopsis'], strip['note']].each do |str|
       next if str.nil?
+
       tstr = str.sub(/"$/, '') # remove trailing quote, if any
       assert_match(/[\.\?\!]$/, tstr,
                    "Non-sentence end \"#{str}\" from #{strip['date']}")

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # extend system classes with useful methods
 
 require 'finderdsi/stem'
@@ -11,6 +13,7 @@ class String
   # then collapse multiple spaces characters into a single space
   def stemmed
     return self if self == '\N' || self == 'NULL' # don't stem this
+
     split(/[\s\.\?\!,-]/).collect(&:stem).join('  ').gsub(/\s+/, ' ')
     # split(/[\s\.\?\!,-]/).collect do |word|
     # word.stem
@@ -22,6 +25,7 @@ class String
   # is NULL
   def sqlquote
     return self if self == 'NULL' # dont quote this
+
     "'" + gsub(/'/, "''") + "'"
   end
 end

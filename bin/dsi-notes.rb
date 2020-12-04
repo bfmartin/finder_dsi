@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
+
 #
 # reads the dsistrips json file and print all items with notes.
 # Useful for browsing and debugging.

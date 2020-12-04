@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # this works with both json and json/pure, and the speed difference is
 # small.  json/pure seems available more places, though.
 # require 'json/pure'
@@ -65,7 +67,7 @@ class FinderDSI
   def self.version_from_changelog(file = 'Changelog')
     /Version\s+([\d.]+)/.match(File.readlines(file).find_all do |line|
                                  /Version/.match(line)
-                               end.sort.last)[1]
+                               end.max)[1]
   end
 
   def self.populate_striphash(file, hashcache)

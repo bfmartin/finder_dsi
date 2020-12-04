@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
+
 #
 # reads dsistrips and creates lines to be loaded into the bfmartin.ca
 # database.  See the database schema in the README.  also loads dialog

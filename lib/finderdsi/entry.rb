@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # parent class
 class FinderDSI
   # this class helps turn hashes read from the dsistrips json file, and

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # top level class
 class FinderDSI
   # work with the dsi dialog data
@@ -76,6 +78,7 @@ class FinderDSI
       dialoghash = {}
       dialog['dsidialog']['dialog'].each do |str|
         next if str == {}
+
         dialoghash[str['date']] = str
       end
       dialoghash
@@ -85,7 +88,7 @@ class FinderDSI
       is_sanand = lines[0] =~ /id\s+quote/
       begin
         lines.reject! { |line| line =~ /^(id\s+quote|pg|sh)/ }
-      rescue
+      rescue Error
         # do nothing
         _i = 0
       end
@@ -104,6 +107,7 @@ class FinderDSI
     def self.proc_john_line(dln, ret)
       (ddate, dlines) = parse_john_line(dln)
       return if ddate.nil?
+
       add_john_line(ddate, dlines, ret)
     end
 
@@ -121,12 +125,14 @@ class FinderDSI
     def self.parse_john_line(dln)
       begin
         return nil if dln =~ /^(pg|sh|\.\.\.)/
-      rescue
+      rescue Error
         return nil
       end
       return nil unless (items = /(\d+) [*-][*-]+ ?(.*)/.match(dln))
+
       dlines = items[2]
       return nil if dlines =~ /^\s+$/ || dlines == ''
+
       [items[1], dlines]
     end
 
