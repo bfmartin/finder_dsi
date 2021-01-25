@@ -9,7 +9,7 @@
 # use a statement like this in maria db / mysql. this assumes an empty table.
 #    > load data local infile 'loadtable.txt' into table dsi;
 
-$LOAD_PATH << __dir__ + '/../lib'
+$LOAD_PATH << "#{__dir__}/../lib"
 require 'finderdsi'
 
 dialog = FinderDSI::Dialog.dsidialoghash

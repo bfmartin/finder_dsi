@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-$LOAD_PATH << __dir__ + '/../lib'
+$LOAD_PATH << "#{__dir__}/../lib"
 require 'finderdsi'
 
 # some tests for data validations.
@@ -75,13 +75,12 @@ class TestValidateDSIData < Test::Unit::TestCase
       next if str.nil?
 
       tstr = str.sub(/"$/, '') # remove trailing quote, if any
-      assert_match(/[\.\?\!]$/, tstr,
-                   "Non-sentence end \"#{str}\" from #{strip['date']}")
+      assert_match(/[.?!]$/, tstr, "Non-sentence end \"#{str}\" from #{strip['date']}")
     end
   end
 
   def each_strip_dates(strip, dates_seen)
-    assert(strip.key?('date'), 'strip has no date: ' + strip.to_s)
+    assert(strip.key?('date'), "strip has no date: #{strip}")
     strip_has_valid_date(strip)
     strip_is_not_duplicate_date(strip, dates_seen)
   end
@@ -122,8 +121,7 @@ class TestValidateDSIData < Test::Unit::TestCase
   def check_field(strip, key, klass)
     stripdate = strip['date']
     assert(strip.key?(key), "strip #{stripdate} does not have #{key}")
-    assert_instance_of(klass, strip[key],
-                       "#{key} not #{klass} in #{stripdate}")
+    assert_instance_of(klass, strip[key], "#{key} not #{klass} in #{stripdate}")
     strip.delete(key)
   end
 
@@ -131,18 +129,17 @@ class TestValidateDSIData < Test::Unit::TestCase
   def strip_has_valid_date(strip)
     stripdate = strip['date']
     stripdate_obj = Date.parse_json(stripdate)
-    assert_not_nil(stripdate_obj, 'strip date not valid: ' + stripdate)
+    assert_not_nil(stripdate_obj, "strip date not valid: #{stripdate}")
 
     # date must be between 1989-04-16 and today
-    assert(stripdate_obj >= FinderDSI::FIRST_STRIP_DATE,
-           'date in the past: ' + stripdate)
-    assert(stripdate_obj <= Date.today, 'date in the future: ' + stripdate)
+    assert(stripdate_obj >= FinderDSI::FIRST_STRIP_DATE, "date in the past: #{stripdate}")
+    assert(stripdate_obj <= Date.today, "date in the future: #{stripdate}")
   end
 
   def check_dsistrips_keys(json, dsistrips)
     dsikeys = dsistrips.keys
-    assert_equal(2, dsikeys.size, 'dsi has wrong keys: ' + dsikeys.join(','))
+    assert_equal(2, dsikeys.size, "dsi has wrong keys: #{dsikeys.join(',')}")
     jkeys = json.keys
-    assert_equal(1, jkeys.size, 'top has extra key(s): ' + jkeys.join(','))
+    assert_equal(1, jkeys.size, "top has extra key(s): #{jkeys.join(',')}")
   end
 end

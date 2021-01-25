@@ -14,7 +14,7 @@ class String
   def stemmed
     return self if self == '\N' || self == 'NULL' # don't stem this
 
-    split(/[\s\.\?\!,-]/).collect(&:stem).join('  ').gsub(/\s+/, ' ')
+    split(/[\s.?!,-]/).collect(&:stem).join('  ').gsub(/\s+/, ' ')
     # split(/[\s\.\?\!,-]/).collect do |word|
     # word.stem
     # end.join('  ').gsub(/\s+/, ' ')
@@ -26,7 +26,7 @@ class String
   def sqlquote
     return self if self == 'NULL' # dont quote this
 
-    "'" + gsub(/'/, "''") + "'"
+    "'#{gsub(/'/, "''")}'"
   end
 end
 

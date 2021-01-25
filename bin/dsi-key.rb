@@ -9,7 +9,7 @@
 # useful for organising/debugging the keywords, and also useful for browsing
 
 require 'optimist'
-$LOAD_PATH << __dir__ + '/../lib'
+$LOAD_PATH << "#{__dir__}/../lib"
 require 'finderdsi'
 
 # extracts the proper items (subject, keywork and/or character) out of
@@ -28,7 +28,7 @@ end
 def self.skey_add(arr, snam)
   return if snam.nil?
 
-  item = snam.class == Array ? snam : [snam]
+  item = snam.instance_of?(Array) ? snam : [snam]
   item.collect!(&:to_s)
   arr.concat(item)
 end
@@ -80,7 +80,7 @@ end
 
 def self.hash_by_number(entryhash)
   strips = {}
-  entryhash.keys.each do |key|
+  entryhash.each_key do |key|
     entrykey(entryhash, strips, key)
   end
   strips

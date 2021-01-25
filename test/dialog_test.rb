@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test/unit'
-$LOAD_PATH << __dir__ + '/../lib'
+$LOAD_PATH << "#{__dir__}/../lib"
 require 'finderdsi'
 
 # some tests for dialog api

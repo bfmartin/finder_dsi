@@ -10,7 +10,7 @@ require 'date'
 # some methods to work with the dsi data
 class FinderDSI
   # default location of json files.  must end with a slash
-  DATADIR = __dir__ + '/../data/'
+  DATADIR = "#{__dir__}/../data/"
 
   # date of first dilbert strip
   FIRST_STRIP_DATE = Date.new(1989, 4, 16)
@@ -37,7 +37,7 @@ class FinderDSI
   #
   # note: all keys and non-nil values, and everything else including
   # the date, are strings.
-  def self.dsistrips(file = DATADIR + 'dsistrips.json')
+  def self.dsistrips(file = "#{DATADIR}dsistrips.json")
     cache = FinderDSICache.instance.strips
     cache[file] = JSON.parse(File.readlines(file).join) unless cache.key?(file)
     cache[file]
@@ -54,7 +54,7 @@ class FinderDSI
   #   value: hash containing json structure with keys date, subject,
   #          note, synopsis, characters, keywords.  All keys and values in
   #          this hash are strings, including the date
-  def self.dsistriphash(file = DATADIR + 'dsistrips.json')
+  def self.dsistriphash(file = "#{DATADIR}dsistrips.json")
     hashcache = FinderDSICache.instance.striphash
     unless hashcache.key?(file)
       hashcache[file] = {}
@@ -82,6 +82,7 @@ require 'singleton'
 class FinderDSICache # :nodoc: all
   include Singleton
   attr_accessor :strips, :striphash
+
   def initialize
     @strips = {}
     @striphash = {}

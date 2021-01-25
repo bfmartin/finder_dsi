@@ -11,7 +11,7 @@
 #
 # The JSON is printed to STDOUT
 
-$LOAD_PATH << __dir__ + '/../lib'
+$LOAD_PATH << "#{__dir__}/../lib"
 require 'finderdsi'
 
 # execution starts here

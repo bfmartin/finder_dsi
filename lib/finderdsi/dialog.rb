@@ -6,7 +6,7 @@ class FinderDSI
   class Dialog
     # read and parse the dsidialog json file then return an object
     # containing the contents.  cache it so we only parse it once
-    def self.dsidialog(file = FinderDSI::DATADIR + 'dsidialog.json')
+    def self.dsidialog(file = "#{FinderDSI::DATADIR}dsidialog.json")
       cash = DialogCache.instance.dialog
       cash[file] = JSON.parse(File.readlines(file).join) unless cash.key?(file)
       cash[file]
@@ -14,9 +14,7 @@ class FinderDSI
 
     # provide an empty dialog structure to merge to
     def self.empty
-      { 'dsidialog' => { 'header' => { 'description' =>
-                                       'this file was generated: ' +
-                                         Date.today.to_s },
+      { 'dsidialog' => { 'header' => { 'description' => "this file was generated: #{Date.today}" },
                          'dialog' => [] } }
       #      blank = <<JSON
       # {
@@ -31,7 +29,7 @@ class FinderDSI
 
     # reformat the array returned by dsidialog into a hash indexed by a
     # date object.  cache the result
-    def self.dsidialoghash(file = FinderDSI::DATADIR + 'dsidialog.json')
+    def self.dsidialoghash(file = "#{FinderDSI::DATADIR}dsidialog.json")
       hashcache = DialogCache.instance.dialoghash
       unless hashcache.key?(file)
         hashcache[file] = {}
@@ -60,7 +58,7 @@ class FinderDSI
       # turn the main dialog array into a hash, making checking for dates easier
       dhash = hashdialog(dialog)
       dd = dialog['dsidialog']['dialog']
-      ndia.keys.each { |dt| dd << dianew(dt, ndia[dt]) unless dhash.key?(dt) }
+      ndia.each_key { |dt| dd << dianew(dt, ndia[dt]) unless dhash.key?(dt) }
       dd.sort_by { |a| a['date'] }
       # dd.sort { |aa, bb| aa['date'].to_s <=> bb['date'].to_s }
     end
@@ -70,7 +68,7 @@ class FinderDSI
       res['date'] = date
 
       # make sure lines is an array
-      res['lines'] = dialog.class == Array ? dialog : [dialog]
+      res['lines'] = dialog.instance_of?(Array) ? dialog : [dialog]
       res
     end
 
@@ -119,7 +117,7 @@ class FinderDSI
     def self.add_john_line(ddate, dlines, itm)
       dt = Date.parse_yymmdd(ddate)
       nonutf = strip_non_utf(dlines)
-      itm.key?(dt) ? itm[dt] += ' ' + nonutf : itm[dt] = nonutf
+      itm.key?(dt) ? itm[dt] += " #{nonutf}" : itm[dt] = nonutf
     end
 
     def self.parse_john_line(dln)
@@ -153,6 +151,7 @@ require 'singleton'
 class DialogCache # :nodoc: all
   include Singleton
   attr_accessor :dialog, :dialoghash
+
   def initialize
     @dialog = {}
     @dialoghash = {}

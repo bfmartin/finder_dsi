@@ -37,7 +37,7 @@ class FinderDSI
       note = @strip['note']
       syn = @strip['synopsis']
       if !note.nil?
-        syn + ' ' + note
+        "#{syn} #{note}"
       else
         syn
       end
