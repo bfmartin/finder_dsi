@@ -73,7 +73,7 @@ end
 
 def self.print_by_number(entryhash)
   strips = hash_by_number(entryhash)
-  strips.keys.sort.reverse.each do |entry|
+  strips.keys.sort.reverse_each do |entry|
     kout(strips[entry])
   end
 end

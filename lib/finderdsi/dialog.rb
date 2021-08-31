@@ -110,7 +110,7 @@ class FinderDSI
     end
 
     def self.proc_sanand_line(dline, ret)
-      (sdt, lines) = dline.split(/\t/)
+      (sdt, lines) = dline.split("\t")
       ret[Date.parse_yyyymmdd(sdt)] = lines[0, lines.length - 4]
     end
 
@@ -122,7 +122,7 @@ class FinderDSI
 
     def self.parse_john_line(dln)
       begin
-        return nil if dln =~ /^(pg|sh|\.\.\.)/
+        return nil if /^(pg|sh|\.\.\.)/.match?(dln)
       rescue StandardError
         return nil
       end

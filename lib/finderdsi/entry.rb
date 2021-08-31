@@ -36,39 +36,39 @@ class FinderDSI
     def synopsis_note
       note = @strip['note']
       syn = @strip['synopsis']
-      if !note.nil?
-        "#{syn} #{note}"
-      else
+      if note.nil?
         syn
+      else
+        "#{syn} #{note}"
       end
     end
 
     # a string containing comma separated character names, if available
     def characters
       chars = @strip['characters']
-      if !chars.nil?
-        chars.join(',')
-      else
+      if chars.nil?
         @null
+      else
+        chars.join(',')
       end
     end
 
     # string containing comma-separated keywords and subject, if available
     def keywords_subject
       key = @strip['keywords']
-      if !key.nil?
-        [@strip['subject'], key].join(',')
-      else
+      if key.nil?
         @null
+      else
+        [@strip['subject'], key].join(',')
       end
     end
 
     # string containing lines of dialog if available
     def dialog
-      if !@dialogv.nil?
-        @dialogv['lines'].join(' ')
-      else
+      if @dialogv.nil?
         @null
+      else
+        @dialogv['lines'].join(' ')
       end
     end
   end
