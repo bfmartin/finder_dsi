@@ -44,7 +44,7 @@ class FinderDSI
       cache = DialogCache.instance.dialog
       unless cache.key?(file)
         newdialog = {}
-        cache[file] = dialog_raw(IO.readlines(file), newdialog)
+        cache[file] = dialog_raw(File.readlines(file), newdialog)
       end
       cache[file]
     end
