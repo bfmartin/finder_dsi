@@ -17,7 +17,7 @@ require 'json'
 $LOAD_PATH << "#{__dir__}/../lib"
 require 'finderdsi'
 
-if ARGV.size.zero?
+if ARGV.empty?
   puts <<~TEXT
     converts strip data in the tab-delimited format
 
