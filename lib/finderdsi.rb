@@ -66,7 +66,7 @@ class FinderDSI
   # look up the latest version number from the changelog
   def self.version_from_changelog(file = 'Changelog')
     /Version\s+([\d.]+)/.match(File.readlines(file).find_all do |line|
-                                 /Version/.match(line)
+                                 line.include?('Version')
                                end.max)[1]
   end
 
