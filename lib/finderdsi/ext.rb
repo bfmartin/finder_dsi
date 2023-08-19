@@ -26,7 +26,7 @@ class String
   def sqlquote
     return self if self == 'NULL' # dont quote this
 
-    "'#{gsub(/'/, "''")}'"
+    "'#{gsub("'", "''")}'"
   end
 end
 
